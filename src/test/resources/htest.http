@@ -1,0 +1,71 @@
+POST http://localhost:8080/springboot-demo/api/v1.0/user/
+Content-Type: application/json
+
+{
+  "name": "李四",
+  "age": 35
+}
+
+###
+
+
+GET http://localhost:8080/springboot-demo/api/v1.0/user/
+Content-Type: application/json
+
+
+###
+
+
+GET http://localhost:8080/springboot-demo/api/v1.0/user/1
+Content-Type: application/json
+
+
+###
+
+
+PUT http://localhost:8080/springboot-demo/api/v1.0/user/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "张三",
+  "age": 28
+}
+
+###
+
+DELETE http://localhost:8080/springboot-demo/api/v1.0/user/1
+Content-Type: application/json
+
+###
+
+
+GET  http://localhost:8080/springboot-demo/health
+Content-Type: application/json
+
+###
+
+
+
+GET  http://localhost:8080/springboot-demo/health
+Content-Type: application/json
+
+###
+
+GET  http://localhost:8080/springboot-demo/trace
+Content-Type: application/json
+
+###
+
+GET http://localhost:8080/springboot-demo/logfile
+Content-Type: application/json
+###
+
+GET http://localhost:8080/springboot-demo/dump
+Content-Type: application/json
+###
+
+GET http://localhost:8080/springboot-demo/heapdump
+Content-Type: application/json
+
+###
