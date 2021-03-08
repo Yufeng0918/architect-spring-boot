@@ -208,7 +208,7 @@ spring boot官方手册里的一些东西，随着我们系统的不断深入，
     </plugins>
 </build>
 
-``` 
+```
 - 编写代码
 ```java
 import org.springframework.boot.*;
@@ -284,7 +284,7 @@ spring-boot-starter-parent指定了pluginManagement，配置好了一系列的�
         </plugin>
     </plugins>
 </build>
-``` 
+```
 **spring-boot-starter-***
 
 spring-boot提供了一些列的starter类依赖，跟流行的常用项目进行整合，比如mybatis、redis、mongodb、elasticsearch，等等。
@@ -307,7 +307,7 @@ com
          |   +- UserService.java
          +- web
              +- UserController.java
-``` 
+```
 
 
 用于启动的类一般会按照下面这样来写
@@ -381,7 +381,7 @@ spring boot为了贯彻简化开发过程的原则，提供了一个devtools工�
     </dependency>
 </dependencies>
 
-``` 
+```
 让系统在代码变化的时候自动重启（常见于本地开发和调试）
 如果我们的应用程序使用了devtools，此时如果在IDE中直接启动，则会认为是开发调试过程。则此时如果classpath中的任何一个文件变化了，就会自动重启应用程序。在IDE中启动程序的时候，这个功能时很有用的，因为我们启动了一个web程序之后，会随时调试和修改代码，代码修改之后，不需要手动重启，web程序自己就重启了
 但是上面介绍中也说了，打成一个jar包，java -jar启动一个jar包，对于执行jar包的情况下，spring boot会认为这是生产环境，则不会启用devtools的任何功能，包括这个自动重启功能
@@ -425,16 +425,16 @@ Git工作流，集成测试，develop在本地复现代码，commit提交，push
         </plugin>
     </plugins>
 </build>
-``` 
+```
 ```properties
 spring.devtools.remote.secret=123456
-``` 
+```
 做了上面的配置之后，如果我们将这个程序打包后，在我们的某台机器上启动，此时会基于devtools暴露出来一个可以连接的端口，如果我们设置了上面的那个参数之后，这个远程服务器上的服务组件，就会自动启用
 然后我们需要在本地手动运行一个客户端组件，一般就是在IDE中启动即可，在IDE中需要使用run configurations，对我们的应用程序，使用org.springframework.boot.devtools.RemoteSpringApplication，作为main class。同时将http://localhost:8080/作为启动参数传递过去
 
 此时连接上以后，一个好处就是，如果在本地写代码，会直接将更新后的代码文件传输到远程机器上然后自动进行重启
 
-*** 
+***
 
 ## 9. SpringApplication高阶功能介绍
 #### SpringApplication介绍
@@ -706,7 +706,7 @@ public class Application {
     }
     
 }
-``` 
+```
 编写Domain类
 ```java
 public class User {
@@ -715,7 +715,7 @@ public class User {
     private String name;
     private Integer age;
 }
-``` 
+```
 编写Dao类
 ```java
 @Mapper
@@ -739,7 +739,7 @@ public class UserDAOImpl implements UserDao {
         return userMapper.listUsers();
     }
 }
-``` 
+```
 编写Service类
 ```java
 public interface UserService {
@@ -773,7 +773,7 @@ public class UserController {
         return userService.listUsers();
     }
 }
-``` 
+```
 编写测试http文件
 ```shell script
 POST http://localhost:8080/user/
@@ -823,7 +823,7 @@ mybatis.type-handlers-package=com.example.typehandler
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.configuration.default-fetch-size=100
 mybatis.configuration.default-statement-timeout=30
-``` 
+```
 #### 目前为止发现的spring boot几大特点总结
 + **对常用的依赖进行统一的版本约束**，让各依赖的版本都可以兼容，通过spring-boot-starter-parent中的dependencyManagement实现
 
@@ -872,7 +872,7 @@ public class MyRestController {
     }
 }
 
-``` 
+```
 
 #### spring boot为spring mvc做的auto configuration
 + 自动注册了ContentNegotiatingViewResolver和BeanNameViewResolver两个bean
@@ -1046,7 +1046,7 @@ public class UserController {
 #### @ResponseBody
 就是将方法的返回值直接用json等格式返回到浏览器，一般我们现在都直接用@RestController了，自带这个功能
 ***
- 
+
 
 ## 10. web开发中对请求参数的校验
 #### Spring Boot对请求校验的支持
@@ -1098,7 +1098,7 @@ public class UserController {
         return "success";
     }
 }
-``` 
+```
 #### 自定义校验注解
 ```java
 public class AgeValidator implements ConstraintValidator<Age, Integer> {
@@ -1364,7 +1364,7 @@ JUnit还有一个Suite的概念，一次性运行多个测试用例，算是一�
 @SuiteClasses({TestSuite1.class, TestSuite2.class})
 public class TestSuitMain {
 }
-``` 
+```
 
 我们一般都是，写好一些代码组件，然后就针对这些代码组件，去立即写对应的单元测试，单元测试是一个类一个类的执行
 到了最后，你都要集成测试，mvn test，将所有的单元测试全部跑一遍
@@ -1402,16 +1402,36 @@ public class EmployeeServiceTest {
 ```
 **MockMvc 测试controller组件**
 
-+ 模拟GET请求：mvc.perform(get("/employee/{id}", 1))
-+ 模拟POST请求：mvc.perform(post("/employee/{id}", 1)).contentType(MediaType.APPLICATION_JSON_UTF8).content(JSONObject.toJSONString(user)
-+ 模拟文件上传：mvc.perform(multipart("/upload").file("file", "文件内容".getBytes("UTF-8")))
-+ 模拟表单请求：mvc.perform(post("/employee").param("name", "张三").param("age", 20))
-+ 模拟session：mvc.perform(get("/employee").sessionAttr(name, value))
-+ 模拟cookiei：mvc.perform(get("/employee").cookie(new Cookie(name ,value)))
-+ 模拟HTTP body内容，比如json：mvc.perform(get("/employee").content(json))
-+ 返回值比较status: andExpect(status().isOk())
-+ 返回值比较json: andExpect(content().json(JSONArray.toJSONString(users)))
-+ 返回值比较striong: andExpect(content().string("success"));
+```java
+//模拟GET请求
+mvc.perform(get("/employee/{id}", 1))
+
+//模拟POST请求
+mvc.perform(post("/employee/{id}",1)).contentType(MediaType.APPLICATION_JSON_UTF8).content(JSONObject.toJSONString(user)
+                                                                                           
+// 模拟文件上传                                                                                    
+mvc.perform(multipart("/upload").file("file", "文件内容".getBytes("UTF-8")))
+                                                                                           //模拟表单请求
+mvc.perform(post("/employee").param("name", "张三").param("age", 20))
+                                                                                           //模拟session                                                                                           
+mvc.perform(get("/employee").sessionAttr(name, value)
+            
+//模拟cookiei
+mvc.perform(get("/employee").cookie(new Cookie(name ,value)))
+
+//模拟HTTP body内容，比如json
+mvc.perform(get("/employee").content(json))
+
+//返回值比较status: 
+andExpect(status().isOk())
+
+//返回值比较json: 
+andExpect(content().json(JSONArray.toJSONString(users)))
+
+//返回值比较striong
+andExpect(content().string("success"));
+```
+
 ```java
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -1433,9 +1453,8 @@ public class UserControllerTest {
         user.setName("test user");
         user.setAge(20);
         users.add(user);
-
         when(userService.listUsers()).thenReturn(users);
-        mockMvc.perform(get(BASE_USER_API)).andExpect(content().json(JSONArray.toJSONString(users)));
+  mockMvc.perform(get(BASE_USER_API)).andExpect(content().json(JSONArray.toJSONString(users)));
     }
 
     @Test
@@ -1445,7 +1464,6 @@ public class UserControllerTest {
         User user = new User();
         user.setName("test user");
         user.setAge(20);
-
         when(userService.saveUser(user)).thenReturn(userId);
         mockMvc.perform(post(BASE_USER_API).contentType(MediaType.APPLICATION_JSON_UTF8).content(JSONObject.toJSONString(user))).andExpect(content().json("{'status': 'success', 'message': '新增用户ID为" + user.getId() + "'}"));
     }
@@ -1509,7 +1527,7 @@ public class UserServiceTest {
         assertEquals(userId, userService.saveUser(user));
     }
 }
-``` 
+```
 **DAO层单元测试**
 
 + 可以使用@Sql先构造好需要的数据
@@ -1614,7 +1632,7 @@ public class UserDAOTest {
 public class HelloworldController {
     private Log log = LogFactory.getLog(HelloworldController.class);    
 }
-``` 
+```
 日志格式
 
 + 日期和时间
@@ -1630,7 +1648,7 @@ public class HelloworldController {
 2014-03-05 10:57:51.253  INFO 45469 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1358 ms
 2014-03-05 10:57:51.698  INFO 45469 --- [ost-startStop-1] o.s.b.c.e.ServletRegistrationBean        : Mapping servlet: 'dispatcherServlet' to [/]
 2014-03-05 10:57:51.702  INFO 45469 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
-``` 
+```
 
 #### 自定义日志格式
 可以对控制台和文件两个地方的日志分别定义格式
@@ -1703,7 +1721,7 @@ java util logging的配置文件是：logging.properties
     <scope>provided</scope>
 </dependency>
 
-``` 
+```
 接着要再次修改Application类 继承SpringBootServletInitializer基类
 ```java
 @SpringBootApplication
@@ -1739,7 +1757,7 @@ public class Application extends SpringBootServletInitializer {
     <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 ```
-```shell script
+```http
 // 查看系统的基本健康信息：系统是否正常，磁盘空间，数据库
 http://localhost:8080/springboot-demo/health
 // 查看最近的一些http请求
